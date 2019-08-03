@@ -14,7 +14,8 @@ class Service extends Component {
       errors: [],
       isValidTeam: true,
       serviceCount: 1,
-      isGenerated: false
+      isGenerated: false,
+      isReset: false
       // newServiceData: []
     };
     this.state.services[0] = {};
@@ -54,18 +55,19 @@ class Service extends Component {
 
     this.state.services.forEach((service, index) => {
       if (
+        !service.isDeleted && (
         service == "" ||
         service.serviceName == "" ||
         service.imageName == "" ||
         this.state.collectionName == "" ||
         service.imageName == undefined ||
-        service.serviceName == undefined 
-        // (!service.isIngress &&  service.portNumber == "") ||
-        // (!service.isIngress && service.portNumber == undefined) ||
-        // (service.isIngress && service.traefikURL == "") ||
-        // (service.isIngress && service.traefikURL == undefined) ||
-        // (service.isIngress && service.traefikAppPort == "") ||
-        // (service.isIngress && service.traefikAppPort == undefined)
+        service.serviceName == undefined ||
+        (!service.isIngress &&  service.portNumber == "") ||
+        (!service.isIngress && service.portNumber == undefined) ||
+        (service.isIngress && service.traefikURL == "") ||
+        (service.isIngress && service.traefikURL == undefined) ||
+        (service.isIngress && service.traefikAppPort == "") ||
+        (service.isIngress && service.traefikAppPort == undefined) )
         
       ) {
         this.setState({ isValid: false });
@@ -81,27 +83,7 @@ class Service extends Component {
       }
     });
 
-    genServices.forEach((service, index) => {
-        if (
-          service != "" ||
-          service.serviceName != "" ||
-          service.imageName != "" ||
-          this.state.collectionName != "" ||
-          service.imageName != undefined ||
-          service.serviceName != undefined 
-          // (!service.isIngress &&  service.portNumber == "") ||
-          // (!service.isIngress && service.portNumber == undefined) ||
-          // (service.isIngress && service.traefikURL == "") ||
-          // (service.isIngress && service.traefikURL == undefined) ||
-          // (service.isIngress && service.traefikAppPort == "") ||
-          // (service.isIngress && service.traefikAppPort == undefined)
-          
-        ) {
-          this.setState({ isValid: true });
-        }else{
-            this.setState({ isValid: false });
-        } 
-      });
+    
 
     var finalServiceState = {};
     finalServiceState.services = genServices;
@@ -150,6 +132,13 @@ class Service extends Component {
     this.state.serviceCount = count;
     this.setState({ serviceCount: this.state.serviceCount });
   }
+
+  handleResetButton(){
+
+    this.setState({isReset : true});
+  }
+
+
   handleCollectionNameChange(event) {
     var text = event.target.value;
     var newText = "";
@@ -167,13 +156,13 @@ class Service extends Component {
         service.imageName == "" ||
         this.state.collectionName == "" ||
         service.imageName == undefined ||
-        service.serviceName == undefined 
-        // (!service.isIngress && service.portNumber == "") ||
-        // (!service.isIngress && service.portNumber == undefined) ||
-        // (service.isIngress && service.traefikURL == "") ||
-        // (service.isIngress && service.traefikURL == undefined) ||
-        // (service.isIngress && service.traefikAppPort == "") ||
-        // (service.isIngress && service.traefikAppPort == undefined)
+        service.serviceName == undefined ||
+        (!service.isIngress && service.portNumber == "") ||
+        (!service.isIngress && service.portNumber == undefined)
+        (service.isIngress && service.traefikURL == "") ||
+        (service.isIngress && service.traefikURL == undefined) ||
+        (service.isIngress && service.traefikAppPort == "") ||
+        (service.isIngress && service.traefikAppPort == undefined)
       ) {
         this.setState({ isValid: false });
       } else {
@@ -200,10 +189,10 @@ class Service extends Component {
     if (
       this.state.services[index].serviceName == "" ||
       this.state.services[index].imageName == "" ||
-      this.state.collectionName == "" 
-    //   (!this.state.isIngress && this.state.services[index].portNumber == "" ) ||
-    //   (this.state.isIngress && this.state.services[index].traefikURL == "") ||
-    //   (this.state.isIngress && this.state.services[index].traefikAppPort == "")
+      this.state.collectionName == "" ||
+      (!this.state.services[index].isIngress && this.state.services[index].portNumber == "" ) ||
+      (this.state.services[index].isIngress && this.state.services[index].traefikURL == "") ||
+      (this.state.services[index].isIngress && this.state.services[index].traefikAppPort == "")
 
       ) {
       this.setState({ isValid: false });
@@ -289,12 +278,12 @@ class Service extends Component {
               )}
           </div>
           <div class="col-md-2">
-            <button
+            {/* <button
               class="btn btn-danger"
-              //onClick={}
+              onClick={() => this.handleResetButton}
             >
-              Reset All Services
-            </button>
+              Reset All Fields
+            </button> */}
           </div>
         </div>
 

@@ -180,10 +180,15 @@ class Compose extends Component {
   handlePortAddNetwork() {
     var randomNetwork;
     var traefic = [];
+    this.state.portNumber = "";
+    this.setState({portNumber: this.state.portNumber});
+    this.state.traefikURL = "";
+    this.setState({traefikURL: this.state.traefikURL});
+    this.state.traefikAppPort = "";
+    this.setState({traefikAppPort: this.state.traefikAppPort});
+    
     if (!this.state.isIngress) {
-      this.setState({portNumber: ""});
-      this.setState({traefikURL:""});
-      this.setState({traefikAppPort:""});
+    
       var randomNetworkGen = Math.floor(Math.random() * 6 + 1);
       randomNetwork = "traefik-" + randomNetworkGen;
       traefic = randomNetwork;
@@ -191,9 +196,7 @@ class Compose extends Component {
       this.setState({ networksOne: this.state.networksOne });
       this.props.callbackFromParent(this.state, this.state.id);
     } else if (this.state.isIngress) {
-      this.setState({portNumber: ""});
-      this.setState({traefikURL:""});
-      this.setState({traefikAppPort:""});
+      
       this.state.networksOne.splice(0, 1);
     }
   }
@@ -718,21 +721,21 @@ class Compose extends Component {
             <br />
             <br />
             {portNumberInput}
-            {/* {this.props.isGenerated && !this.props.isValid && this.state.portNumber == "" && !this.state.isIngress && (
+            {this.props.isGenerated && !this.props.isValid && !this.state.isIngress && this.state.portNumber == ""  && (
               <font class="text-danger"> Please Enter Port Mapping</font>
-            )} */}
+            )}
 
             {traefikURLLabel}
             {traefikURLInput}
-            {/* {this.props.isGenerated && !this.props.isValid && this.state.traefikURL == "" && this.state.isIngress && (
+            {this.props.isGenerated && !this.props.isValid && this.state.isIngress && this.state.traefikURL == ""  && (
               <font class="text-danger"> Please Enter URL</font>
-            )} */}
+            )}
 
             {traefikAppPortLabel}
             {traefikAppPortInput}
-            {/* {this.props.isGenerated && !this.props.isValid && this.state.traefikAppPort == "" && this.state.isIngress && (
+            {this.props.isGenerated && !this.props.isValid && this.state.isIngress && this.state.traefikAppPort == "" &&  (
               <font class="text-danger"> Please Enter App Port</font>
-            )} */}
+            )}
             <br />
           </div>
         </div>
