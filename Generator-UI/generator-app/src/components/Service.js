@@ -135,8 +135,6 @@ class Service extends Component {
 
   handleResetButton(){
 
-    var help= "";
-
     window.location.reload(); 
   }
 
