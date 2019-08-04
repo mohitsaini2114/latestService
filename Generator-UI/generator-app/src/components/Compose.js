@@ -194,11 +194,12 @@ class Compose extends Component {
       traefic = randomNetwork;
       this.state.networksOne = [randomNetwork, ...this.state.networksOne];
       this.setState({ networksOne: this.state.networksOne });
-      this.props.callbackFromParent(this.state, this.state.id);
+      
     } else if (this.state.isIngress) {
       
       this.state.networksOne.splice(0, 1);
     }
+    this.props.callbackFromParent(this.state, this.state.id);
   }
 
   handleRemoveNetworkOne(index) {

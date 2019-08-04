@@ -135,7 +135,9 @@ class Service extends Component {
 
   handleResetButton(){
 
-    this.setState({isReset : true});
+    var help= "";
+
+    window.location.reload(); 
   }
 
 
@@ -278,12 +280,12 @@ class Service extends Component {
               )}
           </div>
           <div class="col-md-2">
-            {/* <button
+            <button
               class="btn btn-danger"
-              onClick={() => this.handleResetButton}
+              onClick={() => this.handleResetButton()}
             >
               Reset All Fields
-            </button> */}
+            </button>
           </div>
         </div>
 
